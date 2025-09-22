@@ -3,13 +3,15 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCxYYXKTRB_kC9n8GL-v_OoZNxZMmZSkHw",
+  authDomain: "test-vercel-241c8.firebaseapp.com",
+  projectId: "test-vercel-241c8",
+  storageBucket: "test-vercel-241c8.firebasestorage.app",
+  messagingSenderId: "937194431107",
+  appId: "1:937194431107:web:a5118b008b3555570a71b6",
+  measurementId: "G-9C7LRWLSS1"
 };
 
 // Initialize Firebase
