@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Student</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Add Student</h2>
+    <form id="studentForm">
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="text" id="roll" placeholder="Roll Number" required />
+      <input type="text" id="class" placeholder="Class" required />
+      <button type="submit">Add Student</button>
+    </form>
+    <p id="msg"></p>
+  </div>
+
+  <script type="module">
+    import { db } from './firebase-config.js';
+    import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+    const form = document.getElementById("studentForm");
+    const msg = document.getElementById("msg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const roll = document.getElementById("roll").value;
+      const cls = document.getElementById("class").value;
+
+      try {
+        await addDoc(collection(db, "students"), {
+          name,
+          roll,
+          class: cls,
+          createdAt: new Date()
+        });
+        msg.textContent = "✅ Student added successfully!";
+        msg.style.color = "green";
+        form.reset();
+      } catch (error) {
+        msg.textContent = `❌ ${error.message}`;
+        msg.style.color = "red";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,61 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Page</title>
-    <link rel="stylesheet" href="style.css" />
-    <!-- Use type="module" to enable ES module imports -->
-    <script type="module">
-        // Import Firebase modules
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module">
+    import { auth } from './firebase-config.js';
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 
-        // 1. Firebase config
-        const firebaseConfig = {
-            apiKey: "AIzaSyCxYYXKTRB_kC9n8GL-v_OoZNxZMmZSkHw",
-            authDomain: "test-vercel-241c8.firebaseapp.com",
-            projectId: "test-vercel-241c8",
-            storageBucket: "test-vercel-241c8.firebasestorage.app",
-            messagingSenderId: "937194431107",
-            appId: "1:937194431107:web:a5118b008b3555570a71b6",
-            measurementId: "G-9C7LRWLSS1"
-        };
+    const form = document.getElementById("loginForm");
+    const message = document.getElementById("message");
 
-        // 2. Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-        // 3. Handle login
-        const form = document.getElementById("loginForm");
-        const message = document.getElementById("message");
-
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-                message.textContent = `✅ Welcome ${user.email}`;
-                message.style.color = "green";
-            } catch (error) {
-                message.textContent = `❌ ${error.message}`;
-                message.style.color = "red";
-            }
-        });
-    </script>
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "admin.html"; // redirect to admin panel
+      } catch (error) {
+        message.textContent = `❌ ${error.message}`;
+        message.style.color = "red";
+      }
+    });
+  </script>
 </head>
 <body>
-    <div class="container">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <input type="email" id="email" placeholder="Email" required />
-            <input type="password" id="password" placeholder="Password" required />
-            <button type="submit">Login</button>
-        </form>
-        <p id="message"></p>
-    </div>
+  <div class="container">
+    <h2>Admin Login</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p id="message"></p>
+  </div>
 </body>
 </html>
